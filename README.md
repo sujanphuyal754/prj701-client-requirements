@@ -26,7 +26,7 @@ Retrospective board: see the Trello boards linked in the retrospective documents
 
 ```
 pip install numpy scipy
-python scripts/verify.py
+cd scripts && python verify.py
 ```
 
 ## Reference

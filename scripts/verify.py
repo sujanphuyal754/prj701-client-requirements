@@ -2,7 +2,7 @@ import json, numpy as np
 from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter as L
 from compute import *
-lay=json.load(open("layout.json")); wb=load_workbook("MCDM_Complete_Analysis.xlsx",data_only=True)
+lay=json.load(open("layout.json")); wb=load_workbook("../workbook/MCDM_Complete_Analysis.xlsx",data_only=True)
 r=all_results(); bad=0
 def chk(name,a,b,tol=1e-6):
     global bad
