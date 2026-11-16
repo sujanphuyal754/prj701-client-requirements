@@ -1,0 +1,149 @@
+"""The 12 combinations: 4 ranking methods x 3 weightings.
+
+Methods   : TOPSIS, VIKOR (v = 0.5), PROMETHEE I (partial ranking), PROMETHEE II (complete ranking)
+Weightings: AHP, CRITIC, Entropy
+Standalone file: needs only Python 3 and NumPy.   Run:  python mcdm_12_combinations.py
+
+PROMETHEE I gives a partial ranking, so it has no single rank per publication. Here it is shown as a
+level: level 1 holds every publication that no other publication outranks, level 2 holds those that
+are outranked only by level 1, and so on. Publications on the same level are not ordered by PROMETHEE I.
+"""
+import numpy as np, itertools, json
+names=["Bai et al. [48]","Wu et al. [20]","Li et al. [42]","Yang et al. [77]","Wang et al. [78]","Wang et al. [79]","He et al. [80]","Lucas et al. [81]","Hao et al. [82]","Shang et al. [83]","Zhang et al. [84]","Zhang [85]"]
+princ=["Cross-chain sharing","Smart contracts","Ledger management","Revocable sharing","Smart contracts","Dual-chain system","Multi-chain architecture","Blockchain authorization","Smart contracts","Cloud-edge-end with blockchain","Consensus and smart contracts","Node network theory"]
+crit=["Multi-domain collaboration","Efficiency overhead","Poor traceability","Secure sharing","Legitimate fairness"]
+X=np.array([[1,1,0,1,0],[0,1,0,0,1],[0,0,1,1,0],[0,1,0,1,1],[0,0,0,1,0],[1,1,0,0,0],[0,1,0,1,0],[1,1,0,0,0],[0,1,0,1,0],[0,1,0,1,0],[0,1,0,1,0],[0,1,0,1,0]],float)
+m,n=X.shape
+types=["Benefit"]*n
+# AHP upper-triangle judgments A[i,j] for i<j (criteria order as above)
+UP={(0,1):1/2,(0,2):1/3,(0,3):1/4,(0,4):2,(1,2):1/2,(1,3):1/3,(1,4):3,(2,3):1/2,(2,4):4,(3,4):6}
+RI={1:0,2:0,3:.58,4:.9,5:1.12,6:1.24,7:1.32,8:1.41,9:1.45,10:1.49}
+V_PARAM=0.5
+def rk(x,desc=True):
+    x=np.round(np.asarray(x,float),10)
+    return [int(1+(x>v).sum()) if desc else int(1+(x<v).sum()) for v in x]
+best=np.where(np.array(types)=="Cost",X.min(0),X.max(0)); worst=np.where(np.array(types)=="Cost",X.max(0),X.min(0))
+R=(X-worst)/(best-worst)
+def ahp():
+    A=np.ones((n,n))
+    for (i,j),v in UP.items(): A[i,j]=v; A[j,i]=1/v
+    cs=A.sum(0); N=A/cs; w=N.mean(1); ws=A@w; lam=(ws/w).mean(); CI=(lam-n)/(n-1); CR=CI/RI[n]
+    return dict(A=A,cs=cs,N=N,w=w,ws=ws,lam_i=ws/w,lam=lam,CI=CI,RI=RI[n],CR=CR)
+def critic():
+    sd=R.std(0,ddof=1); C=np.corrcoef(R.T); conf=1-C; sc=conf.sum(1); Cj=sd*sc; w=Cj/Cj.sum()
+    return dict(R=R,sd=sd,C=C,conf=conf,sumconf=sc,Cj=Cj,w=w)
+def entropy():
+    cs=X.sum(0); r=X/cs; rl=np.where(r>0,r*np.log(np.where(r>0,r,1)),0); h=1/np.log(m); e=-h*rl.sum(0); d=1-e; w=d/d.sum()
+    return dict(cs=cs,r=r,rl=rl,sl=rl.sum(0),h=h,e=e,d=d,w=w)
+def topsis(w):
+    den=np.sqrt((X**2).sum(0)); N=X/den; V=N*w
+    vb=np.where(np.array(types)=="Cost",V.min(0),V.max(0)); vw=np.where(np.array(types)=="Cost",V.max(0),V.min(0))
+    sp=np.sqrt(((V-vb)**2).sum(1)); sm=np.sqrt(((V-vw)**2).sum(1)); C=np.round(sm/(sp+sm),10)
+    return dict(den=den,N=N,V=V,vb=vb,vw=vw,sp=sp,sm=sm,C=C,rank=rk(C))
+def vikor(w,v=V_PARAM):
+    T=w*(best-X)/(best-worst); S=T.sum(1); Rr=T.max(1)
+    Ss,Sm,Rs,Rm=S.min(),S.max(),Rr.min(),Rr.max()
+    Q=np.round(v*(S-Ss)/(Sm-Ss)+(1-v)*(Rr-Rs)/(Rm-Rs),10); rank=rk(Q,False)
+    DQ=1/(m-1); q1=Q.min(); srt=np.sort(Q); q2=next((x for x in srt if x>q1+1e-12),None)
+    a1=int(np.argmin(Q)); gap=None if q2 is None else q2-q1
+    c1=gap is not None and gap>=DQ-1e-12; c2=(abs(S[a1]-Ss)<1e-12) or (abs(Rr[a1]-Rs)<1e-12)
+    comp=[]
+    for i in range(m):
+        if abs(Q[i]-q1)<1e-12: comp.append("Yes")
+        elif not c1: comp.append("Yes" if Q[i]-q1<DQ else "No")
+        elif not c2: comp.append("Yes" if q2 is not None and abs(Q[i]-q2)<1e-12 else "No")
+        else: comp.append("No")
+    return dict(T=T,S=S,R=Rr,Ss=Ss,Sm=Sm,Rs=Rs,Rm=Rm,Q=Q,rank=rank,DQ=DQ,a1=a1,q1=q1,q2=q2,gap=gap,c1=bool(c1),c2=bool(c2),comp=comp)
+def promethee(w):
+    pi=np.zeros((m,m))
+    for a in range(m):
+        for b in range(m):
+            if a!=b: pi[a,b]=(w*np.maximum(0,R[a]-R[b])).sum()/w.sum()
+    pp=pi.sum(1)/(m-1); pm=pi.sum(0)/(m-1); phi=np.round(pp-pm,10)
+    return dict(pi=pi,pp=pp,pm=pm,phi=phi,rank=rk(phi))
+def sens(w):
+    P=np.round(R@w,12); rank=rk(P); pairs=list(itertools.combinations(range(m),2))
+    top=int(np.argmax(P)); D=[];F=[];Dp=[]
+    for i,j in pairs:
+        dr=[];fr=[];pr=[]
+        for k in range(n):
+            den=R[j,k]-R[i,k]
+            if abs(P[j]-P[i])<1e-12 or abs(den)<1e-12: dr.append(None);fr.append(None);pr.append(None);continue
+            d=(P[j]-P[i])/den; dr.append(d)
+            if d<=w[k]+1e-12: fr.append(d); pr.append(d*100/w[k])
+            else: fr.append(None); pr.append(None)
+        D.append(dr);F.append(fr);Dp.append(pr)
+    absd=[[None if v is None else abs(v) for v in r] for r in Dp]
+    flag=[1 if top in p else 0 for p in pairs]
+    def colmin(rows,k,sel=None):
+        v=[(r[k],idx) for idx,r in enumerate(rows) if r[k] is not None and (sel is None or sel[idx])]
+        return min(v) if v else None
+    allmin=[colmin(absd,k) for k in range(n)]; topmin=[colmin(absd,k,flag) for k in range(n)]
+    return dict(P=P,rank=rank,pairs=pairs,top=top,D=D,F=F,Dp=Dp,absd=absd,flag=flag,allmin=allmin,topmin=topmin)
+def whatif(w,P,k,pct):
+    w2=w.copy(); w2[k]=w[k]*(1-pct/100); P2=np.round(R@w2,12); return w2,P2,rk(P2)
+def all_results():
+    a=ahp(); c=critic(); e=entropy(); comb=(a['w']+c['w']+e['w'])/3
+    sets={"Combined":comb,"AHP":a['w'],"CRITIC":c['w'],"Entropy":e['w']}
+    res=dict(ahp=a,critic=c,entropy=e,comb=comb,sets=sets,topsis={},vikor={},prom={})
+    for k,w in sets.items(): res['topsis'][k]=topsis(w); res['vikor'][k]=vikor(w); res['prom'][k]=promethee(w)
+    res['sens']=sens(comb)
+    return res
+def promethee1(w):
+    """PROMETHEE I partial ranking: '>' row outranks col, '<' outranked, '=' indifferent, '?' incomparable."""
+    p=promethee(w); pp=np.round(p['pp'],10); pm=np.round(p['pm'],10); M=[['-']*m for _ in range(m)]
+    for a in range(m):
+        for b in range(m):
+            if a==b: continue
+            ge=pp[a]>=pp[b] and pm[a]<=pm[b]; le=pp[b]>=pp[a] and pm[b]<=pm[a]
+            M[a][b]='>' if ge and (pp[a]>pp[b] or pm[a]<pm[b]) else ('<' if le and (pp[b]>pp[a] or pm[b]<pm[a]) else ('=' if ge and le else '?'))
+    cnt={s:sum(1 for a in range(m) for b in range(a+1,m) if M[a][b] in ((s,'<') if s=='>' else (s,))) for s in ('>','=','?')}
+    return dict(M=M,cnt=cnt)
+
+
+# ---------------- run the 12 combinations ----------------
+import csv, os
+
+RES = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results")
+os.makedirs(RES, exist_ok=True)
+res = all_results()
+WEIGHTINGS = ["AHP", "CRITIC", "Entropy"]
+METHODS = ["TOPSIS", "VIKOR", "PROMETHEE I", "PROMETHEE II"]
+
+def levels(M):
+    """Level of each publication in the PROMETHEE I partial ranking."""
+    left, lvl, k = set(range(m)), [0] * m, 1
+    while left:
+        top = [i for i in left if not any(M[j][i] == ">" for j in left if j != i)]
+        for i in top: lvl[i] = k
+        left -= set(top); k += 1
+    return lvl
+
+table = {}   # (method, weighting) -> list of 12 values (rank or level)
+for w in WEIGHTINGS:
+    table[("TOPSIS", w)] = res["topsis"][w]["rank"]
+    table[("VIKOR", w)] = res["vikor"][w]["rank"]
+    table[("PROMETHEE I", w)] = levels(promethee1(res["sets"][w])["M"])
+    table[("PROMETHEE II", w)] = res["prom"][w]["rank"]
+
+print("Weights:")
+for w in WEIGHTINGS: print(f"  {w:<8}" + "  ".join(f"C{k+1}={x:.3f}" for k, x in enumerate(res["sets"][w])))
+print("\nRank per publication (PROMETHEE I shows its level; equal numbers = tied or not separated)\n")
+for w in WEIGHTINGS:
+    print(f"--- {w} weights ---")
+    print(f"{'Publication':<18}" + "".join(f"{x:>14}" for x in METHODS))
+    for i in sorted(range(m), key=lambda i: (table[("PROMETHEE II", w)][i], names[i])):
+        print(f"{names[i]:<18}" + "".join(f"{table[(x, w)][i]:>14}" for x in METHODS))
+    print()
+print("Best publication in each of the 12 combinations:")
+for w in WEIGHTINGS:
+    for x in METHODS:
+        best = [names[i] for i in range(m) if table[(x, w)][i] == 1]
+        print(f"  {x:<13} + {w:<8} -> {', '.join(best)}")
+
+with open(os.path.join(RES, "12_combinations.csv"), "w", newline="") as f:
+    wr = csv.writer(f)
+    wr.writerow(["publication"] + [f"{x} + {w}" for w in WEIGHTINGS for x in METHODS])
+    for i in range(m):
+        wr.writerow([names[i]] + [table[(x, w)][i] for w in WEIGHTINGS for x in METHODS])
+print("\nSaved results/12_combinations.csv")

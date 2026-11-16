@@ -13,7 +13,7 @@ A hybrid multi-criteria decision framework that ranks twelve published data-shar
 | `docs/retrospective_sprint2.md` | Sprint 2 retrospective |
 | `data/table5_decision_matrix.csv` | The 12 × 5 binary decision matrix |
 | `workbook/MCDM_Complete_Analysis.xlsx` | Formula-driven workbook: AHP, CRITIC, Entropy, TOPSIS, VIKOR, PROMETHEE I and II, sensitivity |
-| `scripts/` | Independent Python calculation used to verify the workbook; `run_12_combinations.py` runs the 12 combinations (TOPSIS, VIKOR, PROMETHEE I and PROMETHEE II, each with AHP, CRITIC and Entropy); `run_all_rankings.py` runs every ranking method under every weight set; `topsis_all_weights.py`, `vikor_all_weights.py` and `promethee_all_weights.py` show one method under AHP, CRITIC, Entropy and Combined weights |
+| `scripts/` | Independent Python calculation used to verify the workbook; `mcdm_12_combinations.py` is the same 12-combination run as one standalone file; `run_12_combinations.py` runs the 12 combinations (TOPSIS, VIKOR, PROMETHEE I and PROMETHEE II, each with AHP, CRITIC and Entropy); `run_all_rankings.py` runs every ranking method under every weight set; `topsis_all_weights.py`, `vikor_all_weights.py` and `promethee_all_weights.py` show one method under AHP, CRITIC, Entropy and Combined weights |
 | `results/` | Output of the scripts above, as `.csv` and readable `.txt` files |
 
 ## Status
