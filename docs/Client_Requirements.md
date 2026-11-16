@@ -59,6 +59,8 @@ Priority uses MoSCoW (Must, Should).
 | NFR3 | Usability | The tool can be used without programming skills |
 | NFR4 | Reproducibility | Another group can repeat the analysis from the repository |
 | NFR5 | Maintainability | Files are version controlled on GitHub with a change log |
+| NFR6 | Security and integrity | Formula cells are protected from accidental change, and repository access follows least privilege (added in the design phase, Week 11) |
+| NFR7 | Performance | The workbook recalculates in under five seconds on a standard laptop (added in the design phase, Week 11) |
 
 ## 7. Data requirements
 
@@ -131,6 +133,7 @@ README.md
 |---|---|---|
 | Sprint 1 | First version; FR1 to FR6 completed | Group |
 | Sprint 2 | FR7 to FR13 completed; FR14 in progress; results and limitations added | Group |
+| Design phase | NFR6 (security and integrity) and NFR7 (performance) added; see the Systems Design Document | Group |
 
 ## Reference
 
