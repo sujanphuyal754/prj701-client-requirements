@@ -1,0 +1,13 @@
+publication,TOPSIS + AHP,VIKOR + AHP,PROMETHEE I + AHP,PROMETHEE II + AHP,TOPSIS + CRITIC,VIKOR + CRITIC,PROMETHEE I + CRITIC,PROMETHEE II + CRITIC,TOPSIS + Entropy,VIKOR + Entropy,PROMETHEE I + Entropy,PROMETHEE II + Entropy
+Bai et al. [48],2,2,1,2,2,1,1,1,4,4,1,4
+Wu et al. [20],12,12,6,12,6,11,5,11,3,3,2,3
+Li et al. [42],1,1,1,1,1,8,4,10,1,1,1,1
+Yang et al. [77],3,3,2,3,3,2,2,2,2,2,1,2
+Wang et al. [78],9,9,4,9,12,12,6,12,12,12,4,12
+Wang et al. [79],10,10,5,10,4,9,3,8,5,5,2,5
+He et al. [80],4,4,3,4,7,3,3,3,7,7,3,7
+Lucas et al. [81],10,10,5,10,4,9,3,8,5,5,2,5
+Hao et al. [82],4,4,3,4,7,3,3,3,7,7,3,7
+Shang et al. [83],4,4,3,4,7,3,3,3,7,7,3,7
+Zhang et al. [84],4,4,3,4,7,3,3,3,7,7,3,7
+Zhang [85],4,4,3,4,7,3,3,3,7,7,3,7

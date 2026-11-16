@@ -1,0 +1,67 @@
+Weights:
+  AHP     C1=0.097  C2=0.159  C3=0.259  C4=0.426  C5=0.059
+  CRITIC  C1=0.232  C2=0.189  C3=0.151  C4=0.240  C5=0.188
+  Entropy C1=0.226  C2=0.030  C3=0.405  C4=0.047  C5=0.292
+
+Rank per publication (PROMETHEE I shows its level; equal numbers = tied or not separated)
+
+--- AHP weights ---
+Publication               TOPSIS         VIKOR   PROMETHEE I  PROMETHEE II
+Li et al. [42]                 1             1             1             1
+Bai et al. [48]                2             2             1             2
+Yang et al. [77]               3             3             2             3
+Hao et al. [82]                4             4             3             4
+He et al. [80]                 4             4             3             4
+Shang et al. [83]              4             4             3             4
+Zhang [85]                     4             4             3             4
+Zhang et al. [84]              4             4             3             4
+Wang et al. [78]               9             9             4             9
+Lucas et al. [81]             10            10             5            10
+Wang et al. [79]              10            10             5            10
+Wu et al. [20]                12            12             6            12
+
+--- CRITIC weights ---
+Publication               TOPSIS         VIKOR   PROMETHEE I  PROMETHEE II
+Bai et al. [48]                2             1             1             1
+Yang et al. [77]               3             2             2             2
+Hao et al. [82]                7             3             3             3
+He et al. [80]                 7             3             3             3
+Shang et al. [83]              7             3             3             3
+Zhang [85]                     7             3             3             3
+Zhang et al. [84]              7             3             3             3
+Lucas et al. [81]              4             9             3             8
+Wang et al. [79]               4             9             3             8
+Li et al. [42]                 1             8             4            10
+Wu et al. [20]                 6            11             5            11
+Wang et al. [78]              12            12             6            12
+
+--- Entropy weights ---
+Publication               TOPSIS         VIKOR   PROMETHEE I  PROMETHEE II
+Li et al. [42]                 1             1             1             1
+Yang et al. [77]               2             2             1             2
+Wu et al. [20]                 3             3             2             3
+Bai et al. [48]                4             4             1             4
+Lucas et al. [81]              5             5             2             5
+Wang et al. [79]               5             5             2             5
+Hao et al. [82]                7             7             3             7
+He et al. [80]                 7             7             3             7
+Shang et al. [83]              7             7             3             7
+Zhang [85]                     7             7             3             7
+Zhang et al. [84]              7             7             3             7
+Wang et al. [78]              12            12             4            12
+
+Best publication in each of the 12 combinations:
+  TOPSIS        + AHP      -> Li et al. [42]
+  VIKOR         + AHP      -> Li et al. [42]
+  PROMETHEE I   + AHP      -> Bai et al. [48], Li et al. [42]
+  PROMETHEE II  + AHP      -> Li et al. [42]
+  TOPSIS        + CRITIC   -> Li et al. [42]
+  VIKOR         + CRITIC   -> Bai et al. [48]
+  PROMETHEE I   + CRITIC   -> Bai et al. [48]
+  PROMETHEE II  + CRITIC   -> Bai et al. [48]
+  TOPSIS        + Entropy  -> Li et al. [42]
+  VIKOR         + Entropy  -> Li et al. [42]
+  PROMETHEE I   + Entropy  -> Bai et al. [48], Li et al. [42], Yang et al. [77]
+  PROMETHEE II  + Entropy  -> Li et al. [42]
+
+Saved results/12_combinations.csv
