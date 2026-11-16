@@ -1,7 +1,7 @@
 # Sprint 2 Retrospective
 
 **Unit:** PRJ701 IT Capstone Project 1, KIHE, Trimester 2, 2026
-**Sprint goal:** Rank the publications with TOPSIS, VIKOR and PROMETHEE-II, check agreement and test stability.
+**Sprint goal:** Rank the publications with TOPSIS, VIKOR, PROMETHEE I and PROMETHEE II, check agreement and test stability.
 
 ## Backlog and outcome
 
@@ -9,7 +9,7 @@
 |---|---|---|
 | S2-1 | TOPSIS ranking with combined weights (FR7) | Done |
 | S2-2 | VIKOR ranking, v = 0.5, with acceptance conditions (FR8) | Done |
-| S2-3 | PROMETHEE-II ranking, linear preference function (FR9) | Done |
+| S2-3 | PROMETHEE I (partial) and PROMETHEE-II (complete) rankings, linear preference function (FR9) | Done |
 | S2-4 | Equal ranks for ties and mean rank across methods (FR10) | Done |
 | S2-5 | Sensitivity analysis and critical criterion (FR11) | Done |
 | S2-6 | Agreement between methods, Spearman correlation (FR12) | Done |
@@ -22,6 +22,7 @@
 
 - **Tie rule written before calculating.** The rule from the Sprint 1 retrospective was applied: tied alternatives get equal ranks, so the five identical publications all share rank 4 instead of being ordered by chance.
 - **Excel matched the independent check.** The formula-driven workbook and an independent Python calculation gave the same weights and rankings for all three methods.
+- **PROMETHEE I shows where the evidence conflicts.** Li et al. [42], Bai et al. [48] and Yang et al. [77] are not outranked by any publication, but none of them outranks another, so the order inside the top three depends on the method used.
 - **VIKOR and PROMETHEE-II agree closely.** Their rankings have a Spearman correlation of 0.977, and VIKOR's acceptance conditions were met for Li et al. [42].
 - **Sensitivity analysis found the weak point.** Reducing the C1 weight by only 2.9% changes a rank order, so C1 is the most critical criterion, followed by C5 (3.0%). Knowing this lets us state how far the result can be trusted.
 

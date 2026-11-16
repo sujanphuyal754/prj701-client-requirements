@@ -89,3 +89,14 @@ if __name__=="__main__":
     comb3=np.array([r[mm]['Combined']['rank'] for mm in ('topsis','vikor','prom')],float).mean(0); print("mean rank comb:",comb3.round(2))
     v=r['vikor']['Combined']; print("vikor cond",names[v['a1']],v['q1'],v['q2'],v['gap'],v['DQ'],v['c1'],v['c2'],[names[i][:6] for i in range(m) if v['comp'][i]=='Yes'])
     w2,P2,rk2=whatif(r['comb'],s['P'],0,3.5); print("whatif",rk2)
+
+def promethee1(w):
+    """PROMETHEE I partial ranking: '>' row outranks col, '<' outranked, '=' indifferent, '?' incomparable."""
+    p=promethee(w); pp=np.round(p['pp'],10); pm=np.round(p['pm'],10); M=[['-']*m for _ in range(m)]
+    for a in range(m):
+        for b in range(m):
+            if a==b: continue
+            ge=pp[a]>=pp[b] and pm[a]<=pm[b]; le=pp[b]>=pp[a] and pm[b]<=pm[a]
+            M[a][b]='>' if ge and (pp[a]>pp[b] or pm[a]<pm[b]) else ('<' if le and (pp[b]>pp[a] or pm[b]<pm[a]) else ('=' if ge and le else '?'))
+    cnt={s:sum(1 for a in range(m) for b in range(a+1,m) if M[a][b] in ((s,'<') if s=='>' else (s,))) for s in ('>','=','?')}
+    return dict(M=M,cnt=cnt)

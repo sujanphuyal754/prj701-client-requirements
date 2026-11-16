@@ -43,7 +43,7 @@ Priority uses MoSCoW (Must, Should).
 | FR6 | Combine the three weight sets into one combined set | Must | Done (Sprint 1) |
 | FR7 | Rank alternatives with TOPSIS | Must | Done (Sprint 2) |
 | FR8 | Rank alternatives with VIKOR (v = 0.5) and report its acceptance conditions | Must | Done (Sprint 2) |
-| FR9 | Rank alternatives with PROMETHEE-II (linear preference function) | Must | Done (Sprint 2) |
+| FR9 | Rank alternatives with PROMETHEE I (partial ranking from the leaving and entering flows) and PROMETHEE-II (complete ranking from the net flow), using a linear preference function | Must | Done (Sprint 2) |
 | FR10 | Give tied alternatives equal ranks and report a mean rank across methods | Must | Done (Sprint 2) |
 | FR11 | Run sensitivity analysis and identify the most critical criterion | Must | Done (Sprint 2) |
 | FR12 | Measure agreement between methods (Spearman rank correlation) | Should | Done (Sprint 2) |
@@ -79,7 +79,7 @@ Priority uses MoSCoW (Must, Should).
 
 1. The workbook matches the independent Python calculation to four decimal places (NFR1).
 2. The AHP consistency ratio is below 0.10 (FR3). **Sprint 1 result: 0.011.**
-3. Rankings are produced by all three methods under four weight sets (12 combinations).
+3. Rankings are produced by TOPSIS, VIKOR, PROMETHEE I and PROMETHEE-II under four weight sets.
 4. The sensitivity analysis names the most critical criterion and a re-run with the changed weight confirms it. **Sprint 2 result: C1, at a 2.9% weight reduction; C5 is next at 3.0%.**
 5. A user can edit weights and see updated results without programming (FR13). **Met in Sprint 2.**
 
@@ -108,6 +108,8 @@ Priority uses MoSCoW (Must, Should).
 | Lucas et al. [81] | 5 | 9 | 9 | 7.67 | 9 |
 | Wu et al. [20] | 4 | 11 | 11 | 8.67 | 11 |
 | Wang et al. [78] | 12 | 12 | 12 | 12.00 | 12 |
+
+PROMETHEE I (combined weights, 66 pairs): 27 pairs have one publication outranking the other, 11 are indifferent (the five identical publications) and 28 are incomparable. Li et al. [42], Bai et al. [48] and Yang et al. [77] are not outranked by any publication, but none of them outranks another, so PROMETHEE I does not order the top three; PROMETHEE-II orders them Bai, Yang, Li by net flow.
 
 Spearman correlation between methods: VIKOR and PROMETHEE-II 0.977; TOPSIS and VIKOR 0.517; TOPSIS and PROMETHEE-II 0.494.
 

@@ -12,7 +12,7 @@ A hybrid multi-criteria decision framework that ranks twelve published data-shar
 | `docs/retrospective_sprint1.md` | Sprint 1 retrospective (what went well, what did not, improvements) |
 | `docs/retrospective_sprint2.md` | Sprint 2 retrospective |
 | `data/table5_decision_matrix.csv` | The 12 × 5 binary decision matrix |
-| `workbook/MCDM_Complete_Analysis.xlsx` | Formula-driven workbook: AHP, CRITIC, Entropy, TOPSIS, VIKOR, PROMETHEE-II, sensitivity |
+| `workbook/MCDM_Complete_Analysis.xlsx` | Formula-driven workbook: AHP, CRITIC, Entropy, TOPSIS, VIKOR, PROMETHEE I and II, sensitivity |
 | `scripts/` | Independent Python calculation used to verify the workbook |
 
 ## Status

@@ -53,4 +53,11 @@ print("Sens summary xl all:",[g("Sensitivity",f"{L(2+k)}24") for k in range(n)])
 print("Sens summary xl top:",[g("Sensitivity",f"{L(2+k)}25") for k in range(n)]); print("   py top:",[None if x is None else round(x[0],4) for x in s['topmin']])
 print("crit rank",[g("Sensitivity",f"{L(2+k)}27") for k in range(n)],"most critical:",g("Sensitivity","B28"),"| pair:",g("Sensitivity","B29"),"| top crit:",g("Sensitivity","B30"),"| top alt:",g("Sensitivity","C19"))
 w2,P2,rk2=whatif(r['comb'],s['P'],0,3.5); chk("whatif rank",[g("Sensitivity",f"C{39+i}") for i in range(m)],rk2); chk("whatif Pi",[g("Sensitivity",f"B{39+i}") for i in range(m)],P2)
+ws1=wb["PROMETHEE-I"]
+for b,k in enumerate(["Combined","AHP","CRITIC","Entropy"]):
+    st=4+22*b; p1=promethee1(r["sets"][k]); xl=dict(zip(">=?",[ws1.cell(st+14,3).value,ws1.cell(st+14,5).value,ws1.cell(st+14,7).value]))
+    for sy,nm in ((">","pairs"),("=","indiff"),("?","incomp")): chk("PROMETHEE-I "+nm+" "+k,[xl[sy]],[p1["cnt"][sy]])
+    for a in range(12):
+        for c2 in range(12):
+            if a!=c2 and ws1.cell(st+2+a,2+c2).value!=p1["M"][a][c2]: bad+=1; print("MISMATCH rel",k,a,c2)
 print("BAD:",bad)
