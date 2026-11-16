@@ -1,0 +1,28 @@
+Weights:
+  AHP      C1=0.097  C2=0.159  C3=0.259  C4=0.426  C5=0.059
+  CRITIC   C1=0.232  C2=0.189  C3=0.151  C4=0.240  C5=0.188
+  Entropy  C1=0.226  C2=0.030  C3=0.405  C4=0.047  C5=0.292
+  Combined C1=0.185  C2=0.126  C3=0.272  C4=0.238  C5=0.180
+
+VIKOR: Q value (rank). Lower Q is better.
+Publication                    AHP          CRITIC         Entropy        Combined
+Li et al. [42]          0.0000 (1)      0.7423 (8)      0.0000 (1)      0.0633 (1)
+Bai et al. [48]         0.1907 (2)      0.0000 (1)      0.6844 (4)      0.5000 (2)
+Yang et al. [77]        0.2318 (3)      0.4735 (2)      0.6028 (2)      0.5088 (3)
+He et al. [80]          0.2948 (4)      0.6968 (3)      0.9633 (7)      0.7976 (4)
+Hao et al. [82]         0.2948 (4)      0.6968 (3)      0.9633 (7)      0.7976 (4)
+Shang et al. [83]       0.2948 (4)      0.6968 (3)      0.9633 (7)      0.7976 (4)
+Zhang et al. [84]       0.2948 (4)      0.6968 (3)      0.9633 (7)      0.7976 (4)
+Zhang [85]              0.2948 (4)      0.6968 (3)      0.9633 (7)      0.7976 (4)
+Wang et al. [79]       0.9589 (10)      0.7854 (9)      0.7423 (5)      0.8821 (9)
+Lucas et al. [81]      0.9589 (10)      0.7854 (9)      0.7423 (5)      0.8821 (9)
+Wu et al. [20]         1.0000 (12)     0.8378 (11)      0.6607 (3)     0.8909 (11)
+Wang et al. [78]        0.4649 (9)     0.9212 (12)     1.0000 (12)     1.0000 (12)
+
+VIKOR acceptance conditions for the best alternative:
+  AHP       best = Li et al. [42]   Q gap 0.191 vs threshold 0.091  C1 (advantage) = True  C2 (stability) = True
+  CRITIC    best = Bai et al. [48]  Q gap 0.474 vs threshold 0.091  C1 (advantage) = True  C2 (stability) = True
+  Entropy   best = Li et al. [42]   Q gap 0.603 vs threshold 0.091  C1 (advantage) = True  C2 (stability) = True
+  Combined  best = Li et al. [42]   Q gap 0.437 vs threshold 0.091  C1 (advantage) = True  C2 (stability) = True
+
+Saved results/vikor_all_weights.csv

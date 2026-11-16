@@ -13,8 +13,8 @@ A hybrid multi-criteria decision framework that ranks twelve published data-shar
 | `docs/retrospective_sprint2.md` | Sprint 2 retrospective |
 | `data/table5_decision_matrix.csv` | The 12 × 5 binary decision matrix |
 | `workbook/MCDM_Complete_Analysis.xlsx` | Formula-driven workbook: AHP, CRITIC, Entropy, TOPSIS, VIKOR, PROMETHEE I and II, sensitivity |
-| `scripts/` | Independent Python calculation used to verify the workbook; `run_all_rankings.py` runs every ranking method under every weight set |
-| `results/` | Output of `run_all_rankings.py`: `rankings_all_weight_sets.csv` and a readable `.txt` copy |
+| `scripts/` | Independent Python calculation used to verify the workbook; `run_all_rankings.py` runs every ranking method under every weight set; `topsis_all_weights.py`, `vikor_all_weights.py` and `promethee_all_weights.py` show one method under AHP, CRITIC, Entropy and Combined weights |
+| `results/` | Output of the scripts above, as `.csv` and readable `.txt` files |
 
 ## Status
 
@@ -28,7 +28,10 @@ Retrospective board: see the Trello boards linked in the retrospective documents
 ```
 pip install numpy scipy
 cd scripts && python verify.py
-cd .. && python scripts/run_all_rankings.py   # all rankings under all four weight sets
+cd .. && python scripts/run_all_rankings.py        # all rankings under all four weight sets
+python scripts/topsis_all_weights.py      # TOPSIS with AHP, CRITIC, Entropy, Combined
+python scripts/vikor_all_weights.py       # VIKOR with each weighting
+python scripts/promethee_all_weights.py   # PROMETHEE I and II with each weighting
 ```
 
 ## Reference

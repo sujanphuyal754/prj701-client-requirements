@@ -1,0 +1,43 @@
+Weights:
+  AHP      C1=0.097  C2=0.159  C3=0.259  C4=0.426  C5=0.059
+  CRITIC   C1=0.232  C2=0.189  C3=0.151  C4=0.240  C5=0.188
+  Entropy  C1=0.226  C2=0.030  C3=0.405  C4=0.047  C5=0.292
+  Combined C1=0.185  C2=0.126  C3=0.272  C4=0.238  C5=0.180
+
+PROMETHEE II: net flow (rank)
+Publication                    AHP          CRITIC         Entropy        Combined
+Bai et al. [48]        +0.1903 (2)     +0.2419 (1)     +0.1132 (4)     +0.1818 (1)
+Yang et al. [77]       +0.1485 (3)     +0.1938 (2)     +0.1853 (2)     +0.1759 (2)
+Li et al. [42]         +0.1935 (1)    -0.0531 (10)     +0.2762 (1)     +0.1389 (3)
+He et al. [80]         +0.0843 (4)     -0.0113 (3)     -0.1334 (7)     -0.0201 (4)
+Hao et al. [82]        +0.0843 (4)     -0.0113 (3)     -0.1334 (7)     -0.0201 (4)
+Shang et al. [83]      +0.0843 (4)     -0.0113 (3)     -0.1334 (7)     -0.0201 (4)
+Zhang et al. [84]      +0.0843 (4)     -0.0113 (3)     -0.1334 (7)     -0.0201 (4)
+Zhang [85]             +0.0843 (4)     -0.0113 (3)     -0.1334 (7)     -0.0201 (4)
+Wang et al. [79]      -0.2742 (10)     -0.0203 (8)     +0.0620 (5)     -0.0775 (9)
+Lucas et al. [81]     -0.2742 (10)     -0.0203 (8)     +0.0620 (5)     -0.0775 (9)
+Wu et al. [20]        -0.3161 (12)    -0.0684 (11)     +0.1341 (3)    -0.0834 (11)
+Wang et al. [78]       -0.0892 (9)    -0.2174 (12)    -0.1658 (12)    -0.1575 (12)
+
+PROMETHEE I: outranks / outranked by / incomparable (out of 11 other publications)
+Publication                    AHP          CRITIC         Entropy        Combined
+Bai et al. [48]         10 / 0 / 1      11 / 0 / 0       8 / 0 / 3       9 / 0 / 2
+Yang et al. [77]         9 / 1 / 1      10 / 1 / 0       9 / 0 / 2       9 / 0 / 2
+Li et al. [42]           4 / 0 / 7       2 / 4 / 5       6 / 0 / 5       4 / 0 / 7
+He et al. [80]           4 / 2 / 1       1 / 2 / 4       1 / 6 / 0       1 / 2 / 4
+Hao et al. [82]          4 / 2 / 1       1 / 2 / 4       1 / 6 / 0       1 / 2 / 4
+Shang et al. [83]        4 / 2 / 1       1 / 2 / 4       1 / 6 / 0       1 / 2 / 4
+Zhang et al. [84]        4 / 2 / 1       1 / 2 / 4       1 / 6 / 0       1 / 2 / 4
+Zhang [85]               4 / 2 / 1       1 / 2 / 4       1 / 6 / 0       1 / 2 / 4
+Wang et al. [79]         1 / 9 / 0       3 / 2 / 5       6 / 2 / 2       0 / 3 / 7
+Lucas et al. [81]        1 / 9 / 0       3 / 2 / 5       6 / 2 / 2       0 / 3 / 7
+Wu et al. [20]          0 / 11 / 0       1 / 5 / 5       6 / 1 / 4       0 / 3 / 8
+Wang et al. [78]         3 / 8 / 0      0 / 11 / 0      0 / 11 / 0       0 / 8 / 3
+
+PROMETHEE I pairs (of 66):
+  AHP       48 outranked, 11 indifferent, 7 incomparable
+  CRITIC    35 outranked, 11 indifferent, 20 incomparable
+  Entropy   46 outranked, 11 indifferent, 9 incomparable
+  Combined  27 outranked, 11 indifferent, 28 incomparable
+
+Saved results/promethee_all_weights.csv
